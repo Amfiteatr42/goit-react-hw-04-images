@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import PropTypes from 'prop-types';
 import s from '../../styles.module.css'
 
 export class Modal extends Component {
@@ -30,4 +31,10 @@ export class Modal extends Component {
     </>
   )
   }
+}
+
+Modal.propTypes = {
+  largeUrl: PropTypes.string.isRequired,
+  decs: PropTypes.string,
+  toggleModal: PropTypes.func.isRequired,
 }

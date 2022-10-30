@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import s from '../../styles.module.css'
 
 export function Searchbar({ onSubmit, isLoading }) {
@@ -28,4 +29,9 @@ export function Searchbar({ onSubmit, isLoading }) {
       
   </header>
   )
+}
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }

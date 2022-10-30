@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem'
 import s from '../../styles.module.css'
 
@@ -7,4 +8,8 @@ export function ImageGallery({ imagesData }) {
       {imagesData.map(image => <ImageGalleryItem key={image.id} id={image.id} smallUrl={image.webformatURL} largeUrl={image.largeImageURL} desc={image.tags} />)}
     </ul>
   )
+}
+
+ImageGallery.propTypes = {
+  imagesData: PropTypes.arrayOf(PropTypes.object,).isRequired,
 }

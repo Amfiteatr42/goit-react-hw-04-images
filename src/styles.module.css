@@ -178,6 +178,10 @@ img {
   max-height: calc(100vh - 24px);
 }
 
+.Modal img:hover {
+  cursor: zoom-out;
+}
+
 /*
 * Стили компонента Buton (Load more)
 */
