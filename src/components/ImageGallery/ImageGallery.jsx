@@ -11,5 +11,11 @@ export function ImageGallery({ imagesData }) {
 }
 
 ImageGallery.propTypes = {
-  imagesData: PropTypes.arrayOf(PropTypes.object,).isRequired,
+  imagesData: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+  }
+  ),).isRequired,
 }

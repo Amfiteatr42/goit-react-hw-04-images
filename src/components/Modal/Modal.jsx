@@ -18,6 +18,13 @@ export class Modal extends Component {
     }
   }
 
+  // Close modal only by Overlay click, not image.
+  //
+  // closeOnOverlayClick = (e) => {
+  //   if (e.target !== e.currentTarget) return;
+  //   this.props.toggleModal()
+  // }
+
   render() {
   const { largeUrl, desc, toggleModal } = this.props;
   
