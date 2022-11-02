@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
-import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem'
+import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { createRef, useEffect } from 'react';
-import s from '../../styles.module.css'
+import s from '../../styles.module.css';
 
 export function ImageGallery({ imagesData, bodyScrollLock }) {
-
   const itemRef = createRef();
 
   useEffect(() => {
     if (!itemRef.current || imagesData.length < 13) return;
-    window.scrollBy({top: window.innerHeight - 200, behavior: 'smooth'});
-  }, [imagesData])
-  
+    window.scrollBy({ top: window.innerHeight - 200, behavior: 'smooth' });
+  }, [imagesData]);
+
   // console.log('in ImageGallery component');
 
   return (
-    <ul className={s.ImageGallery} >
+    <ul className={s.ImageGallery}>
       {imagesData.map((image, idx) => (
         <ImageGalleryItem
           key={image.id}
@@ -24,17 +23,20 @@ export function ImageGallery({ imagesData, bodyScrollLock }) {
           smallUrl={image.webformatURL}
           largeUrl={image.largeImageURL}
           desc={image.tags}
-          bodyScrollLock={bodyScrollLock} />))}
+          bodyScrollLock={bodyScrollLock}
+        />
+      ))}
     </ul>
-  )
+  );
 }
 
 ImageGallery.propTypes = {
-  imagesData: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired,
-  }
-  ),).isRequired,
-}
+  imagesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
