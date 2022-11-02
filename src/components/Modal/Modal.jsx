@@ -1,43 +1,46 @@
-import { Component } from 'react'
+import { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types';
+// import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import s from '../../styles.module.css'
 
-export class Modal extends Component {
+export function Modal({ largeUrl, desc, toggleModal, displayModal }) {
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.closeOnEsc)
-  }
+  // const listRef = useRef(null);
+  // let targerEl = null;
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.closeOnEsc)
-  }
+  // useEffect(() => {
+  //   targerEl = listRef.current;
+  //   disableBodyScroll(targerEl)
+  //   console.log(targerEl, document.body);
+  // }, [])
 
-  closeOnEsc = (e) => {
-    if (e.key === 'Escape') {
-      this.props.toggleModal()
+  const closeOnEsc = (e) => {
+    if (e.code  === 'Escape') {
+      toggleModal()
     }
   }
 
-  // Close modal only by Overlay click, not image.
+  useEffect(() => {
+    window.addEventListener('keydown', closeOnEsc)
+    return window.removeEventListener('keydown', closeOnEsc)
+  }, [])
+
+  //** Close modal only by Overlay click, not image. **//
   //
   // closeOnOverlayClick = (e) => {
   //   if (e.target !== e.currentTarget) return;
   //   this.props.toggleModal()
   // }
 
-  render() {
-  const { largeUrl, desc, toggleModal } = this.props;
-  
   return (
     <>
-      <div className={s.Overlay} onClick={toggleModal} >
+      <div className={s.Overlay} onClick={toggleModal}>
         <div className={s.Modal} >
           <img src={largeUrl} alt={desc} />
         </div>
       </div> 
     </>
   )
-  }
 }
 
 Modal.propTypes = {

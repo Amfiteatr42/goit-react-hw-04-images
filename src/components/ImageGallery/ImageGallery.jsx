@@ -1,11 +1,30 @@
 import PropTypes from 'prop-types';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem'
+import { createRef, useEffect } from 'react';
 import s from '../../styles.module.css'
 
-export function ImageGallery({ imagesData }) {
+export function ImageGallery({ imagesData, bodyScrollLock }) {
+
+  const itemRef = createRef();
+
+  useEffect(() => {
+    if (!itemRef.current || imagesData.length < 13) return;
+    window.scrollBy({top: window.innerHeight - 200, behavior: 'smooth'});
+  }, [imagesData])
+  
+  // console.log('in ImageGallery component');
+
   return (
-    <ul className={s.ImageGallery}>
-      {imagesData.map(image => <ImageGalleryItem key={image.id} id={image.id} smallUrl={image.webformatURL} largeUrl={image.largeImageURL} desc={image.tags} />)}
+    <ul className={s.ImageGallery} >
+      {imagesData.map((image, idx) => (
+        <ImageGalleryItem
+          key={image.id}
+          ref={idx % 12 === 0 ? itemRef : null}
+          id={image.id}
+          smallUrl={image.webformatURL}
+          largeUrl={image.largeImageURL}
+          desc={image.tags}
+          bodyScrollLock={bodyScrollLock} />))}
     </ul>
   )
 }

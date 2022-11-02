@@ -1,77 +1,68 @@
-import axios from "axios";
-import { ThreeCircles } from 'react-loader-spinner'
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import { Searchbar } from './Searchbar/Searchbar'
 import { ImageGallery } from './ImageGallery/ImageGallery'
 import { Button } from './Button/Button'
+import { Loader } from "./Loader/Loader";
+import { fetchImages } from "services/fetchAPI";
 import s from '../styles.module.css'
 
-axios.defaults.baseURL = 'https://pixabay.com/api/'
 
-export class App extends Component {
-  state = {
-    page: 1,
-    query: '',
-    imagesData: [],
-    isLoading: false,
-  }
 
-  componentDidUpdate = async (_, prevState) => {
-    const { query, page } = this.state;
+export function App() {
+  const [page, setPage] = useState(1)
+  const [query, setQuery] = useState('')
+  const [imagesData, setImagesData] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
-    if (prevState.page !== page || prevState.query !== query) {
+  useEffect(() => {
+    if (query) getImages();
+    
+    async function getImages() {
       try {
-        this.setState({isLoading: true})
-        const images = await axios.get(`?q=${query}&page=${page}&key=30320349-f886ff3d38376fcc5572a2958&image_type=photo&orientation=horizontal&per_page=12`)
-        .then(res => res.data.hits)
+      setIsLoading(true)
+      const newImages = await fetchImages(query, page)
 
-        this.setState(prevState => ({
-        imagesData: [...prevState.imagesData, ...images],
-        isLoading: false,
-        
-      }))
+      // When using setImagesData as below, react require to include imagesData
+      // to the dependencies, which will lead to an infinite loop.
+      // Therefore we need to use a callback to setImagesData 
+      // which receives currentState in arguments automaticly.
+      // setImagesData([...imagesData, ...newImages])
+      setImagesData(currentImages => [...currentImages, ...newImages])
+      setIsLoading(false)
       } catch (error) {
         console.log(error);
-  }
+      }
     }
+  }, [query, page])
+
+  function onSubmit(searchQuery) {
+    setPage(1);
+    setQuery(searchQuery);
+    setImagesData([]);
+    setIsLoading(false)
   }
 
-  onSubmit = (searchQuery) => {
-      this.setState({
-        page: 1,
-        query: searchQuery,
-        imagesData: [],
-        isLoading: false,
-    }) 
+  function onLoadMore() {
+    setPage(page + 1)
   }
 
-  onLoadMore = () => {
-    this.setState(prev => ({
-      page: prev.page + 1
-    }))
+  // const listRef = useRef(null)
+
+  function bodyScrollLock(displayModal) {
+    // if (displayModal) {
+    //   document.body.style.overflow = 'hidden'
+    // } else {
+    //   document.body.style.overflow = 'visible'
+    // }
+    // console.log(document.body);
   }
 
-  render() {
-    const { imagesData, isLoading } = this.state;
-
-    return (
-      <div className={s.App}>
-        <Searchbar onSubmit={this.onSubmit} isLoading={isLoading}/>
-        <ImageGallery imagesData={imagesData} />
-        {isLoading && <ThreeCircles
-          height="100"
-          width="100"
-          color="#0e0e73"
-          wrapperStyle={{}}
-          wrapperClass={s.spinner}
-          visible={true}
-          ariaLabel="three-circles-rotating"
-          outerCircleColor=""
-          innerCircleColor="#2a7488"
-          middleCircleColor="#4c8dbe"
-        />}
-        {!!imagesData.length && <Button onLoadMore={this.onLoadMore} />}
-      </div>
-    )
-  }
+  return (
+    <div className={s.App} >
+      <Searchbar onSubmit={onSubmit} isLoading={isLoading}/>
+      <ImageGallery imagesData={imagesData} bodyScrollLock={bodyScrollLock} />
+      {isLoading && <Loader />}
+      {!!imagesData.length && <Button onLoadMore={onLoadMore} />}
+    </div>
+  )
 }
