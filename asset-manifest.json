@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/goit-react-hw-04-images/static/css/main.f65aadcb.css",
-    "main.js": "/goit-react-hw-04-images/static/js/main.097f4f31.js",
+    "main.css": "/goit-react-hw-04-images/static/css/main.c6dc6526.css",
+    "main.js": "/goit-react-hw-04-images/static/js/main.2f6170c3.js",
     "static/media/bg2.jpg": "/goit-react-hw-04-images/static/media/bg2.85fef312a7d87655bc0b.jpg",
     "static/media/search-heart.svg": "/goit-react-hw-04-images/static/media/search-heart.8384457a7810bb2f41c1.svg",
     "index.html": "/goit-react-hw-04-images/index.html",
     "static/media/search-heart-filled.svg": "/goit-react-hw-04-images/static/media/search-heart-filled.eb08ccca160e6afafd56.svg",
-    "main.f65aadcb.css.map": "/goit-react-hw-04-images/static/css/main.f65aadcb.css.map",
-    "main.097f4f31.js.map": "/goit-react-hw-04-images/static/js/main.097f4f31.js.map"
+    "main.c6dc6526.css.map": "/goit-react-hw-04-images/static/css/main.c6dc6526.css.map",
+    "main.2f6170c3.js.map": "/goit-react-hw-04-images/static/js/main.2f6170c3.js.map"
   },
   "entrypoints": [
-    "static/css/main.f65aadcb.css",
-    "static/js/main.097f4f31.js"
+    "static/css/main.c6dc6526.css",
+    "static/js/main.2f6170c3.js"
   ]
 }
