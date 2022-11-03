@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import s from '../../styles.module.css';
 
-export function Modal({ largeUrl, desc, toggleModal, displayModal }) {
+export function Modal({ largeUrl, desc, toggleModal }) {
   // const listRef = useRef(null);
   // let targerEl = null;
 
@@ -13,16 +13,16 @@ export function Modal({ largeUrl, desc, toggleModal, displayModal }) {
   //   console.log(targerEl, document.body);
   // }, [])
 
-  const closeOnEsc = e => {
-    if (e.code === 'Escape') {
-      toggleModal();
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener('keydown', closeOnEsc);
-    return window.removeEventListener('keydown', closeOnEsc);
-  }, []);
+    const closeOnEsc = e => {
+      if (e.key === 'Escape') {
+        toggleModal();
+      }
+    };
+
+    document.addEventListener('keydown', closeOnEsc);
+    return () => document.removeEventListener('keydown', closeOnEsc);
+  }, [toggleModal]);
 
   //** Close modal only by Overlay click, not image. **//
   //

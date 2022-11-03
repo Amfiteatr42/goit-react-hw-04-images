@@ -7,11 +7,10 @@ export function ImageGallery({ imagesData, bodyScrollLock }) {
   const itemRef = createRef();
 
   useEffect(() => {
+    console.log('im useEffect');
     if (!itemRef.current || imagesData.length < 13) return;
-    window.scrollBy({ top: window.innerHeight - 200, behavior: 'smooth' });
-  }, [imagesData]);
-
-  // console.log('in ImageGallery component');
+    window.scrollBy({ top: window.innerHeight - 310, behavior: 'smooth' });
+  }, [imagesData, itemRef]);
 
   return (
     <ul className={s.ImageGallery}>
