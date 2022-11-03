@@ -4,13 +4,20 @@ import { createRef, useEffect } from 'react';
 import s from '../../styles.module.css';
 
 export function ImageGallery({ imagesData, bodyScrollLock }) {
-  const itemRef = createRef();
+  console.log('image gallery render');
 
+  const itemRef = createRef();
+  // const firstRenderCheck = useRef(true);
+
+  //** Auto scroll on Load More press **//
   useEffect(() => {
-    console.log('im useEffect');
-    if (!itemRef.current || imagesData.length < 13) return;
-    window.scrollBy({ top: window.innerHeight - 310, behavior: 'smooth' });
-  }, [imagesData, itemRef]);
+    // if (firstRenderCheck.current) {
+    //   firstRenderCheck.current = false;
+    //   return;
+    // }
+    if (imagesData.length < 13) return;
+    window.scrollBy({ top: window.innerHeight - 200, behavior: 'smooth' });
+  }, [imagesData]);
 
   return (
     <ul className={s.ImageGallery}>

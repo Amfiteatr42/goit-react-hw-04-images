@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import s from '../../styles.module.css';
 
 export function Modal({ largeUrl, desc, toggleModal }) {
+  //** Disable scroll lock using library **//
+
   // const listRef = useRef(null);
   // let targerEl = null;
 
@@ -15,7 +17,7 @@ export function Modal({ largeUrl, desc, toggleModal }) {
 
   useEffect(() => {
     const closeOnEsc = e => {
-      if (e.key === 'Escape') {
+      if (e.code === 'Escape') {
         toggleModal();
       }
     };

@@ -44,6 +44,7 @@ export function App() {
     setPage(page + 1);
   }
 
+  //** Custom disable scroll lock **/
   // const listRef = useRef(null)
 
   function bodyScrollLock(displayModal) {
@@ -58,7 +59,9 @@ export function App() {
   return (
     <div className={s.App}>
       <Searchbar onSubmit={onSubmit} isLoading={isLoading} />
-      <ImageGallery imagesData={imagesData} bodyScrollLock={bodyScrollLock} />
+      {!!imagesData.length && (
+        <ImageGallery imagesData={imagesData} bodyScrollLock={bodyScrollLock} />
+      )}
       {isLoading && <Loader />}
       {!!imagesData.length && <Button onLoadMore={onLoadMore} />}
     </div>
