@@ -45,15 +45,15 @@ export function App() {
   }
 
   //** Custom disable scroll lock **/
-  // const listRef = useRef(null)
 
   function bodyScrollLock(displayModal) {
-    // if (displayModal) {
-    //   document.body.style.overflow = 'hidden'
-    // } else {
-    //   document.body.style.overflow = 'visible'
-    // }
-    // console.log(document.body);
+    if (!displayModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+    } else {
+      document.body.style.overflow = 'visible';
+      document.body.style.position = 'static';
+    }
   }
 
   return (

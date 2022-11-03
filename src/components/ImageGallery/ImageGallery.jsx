@@ -4,8 +4,6 @@ import { createRef, useEffect } from 'react';
 import s from '../../styles.module.css';
 
 export function ImageGallery({ imagesData, bodyScrollLock }) {
-  console.log('image gallery render');
-
   const itemRef = createRef();
   // const firstRenderCheck = useRef(true);
 
